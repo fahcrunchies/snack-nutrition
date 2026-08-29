@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Crunchies product and nutrition information">
+<title>Crunchies | Product Information</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f7f7f4;color:#171717;font-family:Arial,Helvetica,sans-serif}
+.page{max-width:760px;margin:auto;padding:28px 16px 48px}.brand{text-align:center;padding:12px 10px 28px}
+.mark{width:64px;height:64px;border-radius:50%;background:#111;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:24px}
+h1{font-size:clamp(32px,8vw,52px);margin:12px 0 4px;letter-spacing:-2px}.muted{color:#666}
+.card{background:#fff;border:1px solid #e4e4e4;border-radius:20px;padding:18px;margin-bottom:16px;box-shadow:0 8px 28px rgba(0,0,0,.04)}
+button{font:inherit}.menu{width:100%;border:0;border-radius:14px;background:#111;color:#fff;padding:17px;text-align:left;font-weight:700;display:flex;justify-content:space-between;cursor:pointer}
+.arrow{transition:.2s}.menu.open .arrow{transform:rotate(180deg)}
+.dropdown{display:none;margin-top:10px;border:1px solid #e4e4e4;border-radius:14px;overflow:hidden}.dropdown.show{display:block}
+.product{width:100%;border:0;background:#fff;padding:16px;text-align:left;font-weight:700;cursor:pointer}.product:hover{background:#f1f1ed}
+.nutrition{display:none;margin-top:18px}.nutrition.show{display:block}
+h2{margin:0 0 5px}.tablewrap{overflow-x:auto;border:1px solid #ddd;border-radius:12px}
+table{border-collapse:collapse;width:100%;min-width:570px;font-size:14px}th,td{padding:12px;border-bottom:1px solid #e5e5e5;text-align:right}th:first-child,td:first-child{text-align:left}
+th{background:#f1f1ed}tr:last-child td{border-bottom:0}.sub{padding-left:28px!important;color:#555}
+.note{margin-top:14px;padding:13px;border-radius:12px;background:#f1f1ed;color:#555;font-size:12px;line-height:1.55}
+footer{text-align:center;color:#777;font-size:12px;margin-top:25px}
+</style>
+</head>
+<body>
+<main class="page">
+<header class="brand">
+<div class="mark">C</div>
+<h1>CRUNCHIES</h1>
+<div class="muted">Know what you're eating.</div>
+</header>
+
+<section class="card">
+<button class="menu" id="menu" aria-expanded="false"><span>Nutrition Values</span><span class="arrow">⌄</span></button>
+
+<div class="dropdown" id="dropdown">
+<!-- ADD FUTURE PRODUCTS AS MORE .product BUTTONS -->
+<button class="product" id="limeButton">Crunchies Lime Seasoning</button>
+</div>
+
+<div class="nutrition" id="limeNutrition">
+<h2>Crunchies Lime Seasoning</h2>
+<p class="muted"><strong>Serving size:</strong> 80 g (1 pack)</p>
+
+<div class="tablewrap">
+<table>
+<thead><tr><th>Nutritional Information</th><th>Per 100 g</th><th>Per Serving (80 g)</th><th>% RDA per Serving</th></tr></thead>
+<tbody>
+<tr><td><strong>Energy</strong></td><td>367 kcal</td><td>294 kcal</td><td>14.7%</td></tr>
+<tr><td><strong>Protein</strong></td><td>8.6 g</td><td>6.9 g</td><td>—</td></tr>
+<tr><td><strong>Carbohydrate</strong></td><td>60.1 g</td><td>48.1 g</td><td>—</td></tr>
+<tr><td class="sub">Total Sugars</td><td>0.5 g</td><td>0.4 g</td><td>—</td></tr>
+<tr><td class="sub">Added Sugars</td><td>0 g</td><td>0 g</td><td>0%</td></tr>
+<tr><td><strong>Dietary Fibre</strong></td><td>3.5 g</td><td>2.8 g</td><td>—</td></tr>
+<tr><td><strong>Total Fat</strong></td><td>9.7 g</td><td>7.8 g</td><td>11.6%</td></tr>
+<tr><td class="sub">Saturated Fat</td><td>1.8 g</td><td>1.4 g</td><td>6.5%</td></tr>
+<tr><td class="sub">Trans Fat</td><td>~0 g</td><td>~0 g</td><td>0%</td></tr>
+<tr><td><strong>Sodium</strong></td><td>749 mg</td><td>599 mg</td><td>30.0%</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="note">
+<strong>Approximate values:</strong> Nutritional values are calculated estimates based on the current formulation and assumptions about water, frying-oil absorption and final product weight. Actual values may vary. Final values should be confirmed by finished-product laboratory analysis before use as final regulatory nutrition information.
+<br><br>
+<strong>% RDA:</strong> Recommended Dietary Allowance reference is based on a 2,000 kcal diet. Your daily requirements vary based on your calorie needs.
+</div>
+</div>
+</section>
+
+<section class="card">
+<h2>Product Information</h2>
+<p class="muted">This area is ready for future information such as ingredients, allergens, storage instructions, manufacturing details, product story and contact information.</p>
+</section>
+
+<footer>Product information page • Version 1</footer>
+</main>
+
+<script>
+const menu=document.getElementById("menu"),dropdown=document.getElementById("dropdown"),lime=document.getElementById("limeNutrition");
+menu.onclick=()=>{const open=dropdown.classList.toggle("show");menu.classList.toggle("open",open);menu.setAttribute("aria-expanded",open)};
+document.getElementById("limeButton").onclick=()=>{lime.classList.toggle("show");if(lime.classList.contains("show"))lime.scrollIntoView({behavior:"smooth",block:"start"})};
+</script>
+</body>
+</html>
