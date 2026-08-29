@@ -5,82 +5,220 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="Crunchies product and nutrition information">
 <title>Crunchies | Product Information</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box}body{margin:0;background:#f7f7f4;color:#171717;font-family:Arial,Helvetica,sans-serif}
-.page{max-width:760px;margin:auto;padding:28px 16px 48px}.brand{text-align:center;padding:12px 10px 28px}
-.mark{width:64px;height:64px;border-radius:50%;background:#111;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:24px}
-h1{font-size:clamp(32px,8vw,52px);margin:12px 0 4px;letter-spacing:-2px}.muted{color:#666}
-.card{background:#fff;border:1px solid #e4e4e4;border-radius:20px;padding:18px;margin-bottom:16px;box-shadow:0 8px 28px rgba(0,0,0,.04)}
-button{font:inherit}.menu{width:100%;border:0;border-radius:14px;background:#111;color:#fff;padding:17px;text-align:left;font-weight:700;display:flex;justify-content:space-between;cursor:pointer}
-.arrow{transition:.2s}.menu.open .arrow{transform:rotate(180deg)}
-.dropdown{display:none;margin-top:10px;border:1px solid #e4e4e4;border-radius:14px;overflow:hidden}.dropdown.show{display:block}
-.product{width:100%;border:0;background:#fff;padding:16px;text-align:left;font-weight:700;cursor:pointer}.product:hover{background:#f1f1ed}
-.nutrition{display:none;margin-top:18px}.nutrition.show{display:block}
-h2{margin:0 0 5px}.tablewrap{overflow-x:auto;border:1px solid #ddd;border-radius:12px}
-table{border-collapse:collapse;width:100%;min-width:570px;font-size:14px}th,td{padding:12px;border-bottom:1px solid #e5e5e5;text-align:right}th:first-child,td:first-child{text-align:left}
-th{background:#f1f1ed}tr:last-child td{border-bottom:0}.sub{padding-left:28px!important;color:#555}
-.note{margin-top:14px;padding:13px;border-radius:12px;background:#f1f1ed;color:#555;font-size:12px;line-height:1.55}
-footer{text-align:center;color:#777;font-size:12px;margin-top:25px}
+  :root{
+    --bg:#F6F2E7;
+    --ink:#1C1B16;
+    --muted:#726C5E;
+    --line:#E7E1D1;
+    --card:#FFFFFF;
+    --accent:#6E8F1F;
+    --accent-soft:#EDF2DD;
+    --accent-ink:#3E5411;
+    --radius-lg:22px;
+    --radius-md:16px;
+    --shadow:0 10px 30px rgba(28,27,22,.06);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',Arial,Helvetica,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .page{max-width:720px;margin:auto;padding:36px 18px 56px}
+
+  /* ---- Brand header ---- */
+  .brand{text-align:center;padding:8px 10px 30px}
+  .mark{
+    width:76px;height:76px;
+    margin:0 auto 16px;
+    border-radius:22px;
+    background:var(--card);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:var(--shadow), inset 0 0 0 1px var(--line);
+    padding:12px;
+  }
+  .mark img{width:100%;height:100%;object-fit:contain;display:block}
+  h1{
+    font-family:'Space Grotesk',Arial,sans-serif;
+    font-weight:700;
+    font-size:clamp(30px,7vw,44px);
+    margin:0 0 6px;
+    letter-spacing:-1px;
+  }
+  .tagline{color:var(--muted);font-size:15px;font-weight:500}
+
+  /* ---- Card ---- */
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius-lg);
+    padding:6px;
+    margin-bottom:18px;
+    box-shadow:var(--shadow);
+  }
+  button{font:inherit}
+
+  .menu{
+    width:100%;border:0;background:var(--ink);color:#fff;
+    border-radius:calc(var(--radius-lg) - 6px);
+    padding:18px 20px;text-align:left;
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;font-size:17px;letter-spacing:.2px;
+    display:flex;justify-content:space-between;align-items:center;
+    cursor:pointer;transition:background .2s ease;
+  }
+  .menu:hover{background:#2b2a22}
+  .arrow{transition:transform .25s ease;opacity:.8;font-size:18px}
+  .menu.open .arrow{transform:rotate(180deg)}
+
+  .dropdown{
+    display:grid;grid-template-rows:0fr;
+    transition:grid-template-rows .28s ease;
+  }
+  .dropdown.show{grid-template-rows:1fr}
+  .dropdown-inner{overflow:hidden}
+  .dropdown-list{padding-top:10px}
+
+  .product{
+    width:100%;border:0;background:transparent;
+    padding:15px 16px;text-align:left;font-weight:600;font-size:15px;
+    cursor:pointer;border-radius:12px;
+    display:flex;align-items:center;justify-content:space-between;
+    transition:background .15s ease;color:var(--ink);
+  }
+  .product::after{content:"→";color:var(--accent);font-weight:700;opacity:.6;transition:transform .15s ease}
+  .product:hover{background:var(--accent-soft)}
+  .product:hover::after{transform:translateX(3px)}
+
+  .nutrition{
+    display:grid;grid-template-rows:0fr;
+    transition:grid-template-rows .3s ease;
+  }
+  .nutrition.show{grid-template-rows:1fr;margin-top:14px}
+  .nutrition-inner{overflow:hidden}
+  .nutrition-pad{padding:2px 12px 16px}
+
+  h2{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:21px;margin:6px 0 4px;letter-spacing:-.3px;
+  }
+  .serving{color:var(--muted);font-size:14px;margin-bottom:14px}
+  .serving strong{color:var(--ink)}
+
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius-md)}
+  table{border-collapse:collapse;width:100%;min-width:540px;font-size:13.5px}
+  th,td{padding:13px 14px;border-bottom:1px solid var(--line);text-align:right}
+  th:first-child,td:first-child{text-align:left}
+  th{
+    background:var(--accent-soft);color:var(--accent-ink);
+    font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;font-weight:700;
+  }
+  tr:last-child td{border-bottom:0}
+  tbody tr:hover{background:#FBFAF5}
+  .sub{padding-left:26px!important;color:var(--muted);font-weight:400}
+  .rda{
+    display:inline-block;padding:2px 8px;border-radius:20px;
+    background:var(--accent-soft);color:var(--accent-ink);
+    font-weight:700;font-size:12px;
+  }
+
+  .note{
+    margin-top:16px;padding:14px 16px;border-radius:var(--radius-md);
+    background:#FAF8F1;border:1px solid var(--line);
+    color:var(--muted);font-size:12.5px;line-height:1.6;
+  }
+  .note strong{color:var(--ink)}
+
+  footer{text-align:center;color:var(--muted);font-size:12px;margin-top:30px}
 </style>
 </head>
 <body>
 <main class="page">
-<header class="brand">
-<div class="mark">C</div>
-<h1>CRUNCHIES</h1>
-<div class="muted">Know what you're eating.</div>
-</header>
 
-<section class="card">
-<button class="menu" id="menu" aria-expanded="false"><span>Nutrition Values</span><span class="arrow">⌄</span></button>
+  <header class="brand">
+    <div class="mark">
+      <!-- Replace logo.png with your logo file (background removed, transparent PNG/SVG) -->
+      <img src="logo.png" alt="Crunchies logo">
+    </div>
+    <h1>CRUNCHIES</h1>
+    <div class="tagline">Know what you're eating.</div>
+  </header>
 
-<div class="dropdown" id="dropdown">
-<!-- ADD FUTURE PRODUCTS AS MORE .product BUTTONS -->
-<button class="product" id="limeButton">Crunchies Lime Seasoning</button>
-</div>
+  <section class="card">
+    <button class="menu" id="menu" aria-expanded="false">
+      <span>Nutrition Values</span><span class="arrow">⌄</span>
+    </button>
 
-<div class="nutrition" id="limeNutrition">
-<h2>Crunchies Lime Seasoning</h2>
-<p class="muted"><strong>Serving size:</strong> 80 g (1 pack)</p>
+    <div class="dropdown" id="dropdown">
+      <div class="dropdown-inner">
+        <div class="dropdown-list">
+          <!-- ADD FUTURE PRODUCTS AS MORE .product BUTTONS -->
+          <button class="product" id="limeButton">Crunchies Lime Seasoning</button>
+        </div>
+      </div>
+    </div>
 
-<div class="tablewrap">
-<table>
-<thead><tr><th>Nutritional Information</th><th>Per 100 g</th><th>Per Serving (80 g)</th><th>% RDA per Serving</th></tr></thead>
-<tbody>
-<tr><td><strong>Energy</strong></td><td>367 kcal</td><td>294 kcal</td><td>14.7%</td></tr>
-<tr><td><strong>Protein</strong></td><td>8.6 g</td><td>6.9 g</td><td>—</td></tr>
-<tr><td><strong>Carbohydrate</strong></td><td>60.1 g</td><td>48.1 g</td><td>—</td></tr>
-<tr><td class="sub">Total Sugars</td><td>0.5 g</td><td>0.4 g</td><td>—</td></tr>
-<tr><td class="sub">Added Sugars</td><td>0 g</td><td>0 g</td><td>0%</td></tr>
-<tr><td><strong>Dietary Fibre</strong></td><td>3.5 g</td><td>2.8 g</td><td>—</td></tr>
-<tr><td><strong>Total Fat</strong></td><td>9.7 g</td><td>7.8 g</td><td>11.6%</td></tr>
-<tr><td class="sub">Saturated Fat</td><td>1.8 g</td><td>1.4 g</td><td>6.5%</td></tr>
-<tr><td class="sub">Trans Fat</td><td>~0 g</td><td>~0 g</td><td>0%</td></tr>
-<tr><td><strong>Sodium</strong></td><td>749 mg</td><td>599 mg</td><td>30.0%</td></tr>
-</tbody>
-</table>
-</div>
+    <div class="nutrition" id="limeNutrition">
+      <div class="nutrition-inner">
+        <div class="nutrition-pad">
+          <h2>Crunchies Lime Seasoning</h2>
+          <p class="serving"><strong>Serving size:</strong> 80 g (1 pack)</p>
 
-<div class="note">
-<strong>Approximate values:</strong> Nutritional values are calculated estimates based on the current formulation and assumptions about water, frying-oil absorption and final product weight. Actual values may vary. Final values should be confirmed by finished-product laboratory analysis before use as final regulatory nutrition information.
-<br><br>
-<strong>% RDA:</strong> Recommended Dietary Allowance reference is based on a 2,000 kcal diet. Your daily requirements vary based on your calorie needs.
-</div>
-</div>
-</section>
+          <div class="tablewrap">
+            <table>
+              <thead>
+                <tr><th>Nutritional Information</th><th>Per 100 g</th><th>Per Serving (80 g)</th><th>% RDA</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>Energy</strong></td><td>367 kcal</td><td>294 kcal</td><td><span class="rda">14.7%</span></td></tr>
+                <tr><td><strong>Protein</strong></td><td>8.6 g</td><td>6.9 g</td><td>—</td></tr>
+                <tr><td><strong>Carbohydrate</strong></td><td>60.1 g</td><td>48.1 g</td><td>—</td></tr>
+                <tr><td class="sub">Total Sugars</td><td>0.5 g</td><td>0.4 g</td><td>—</td></tr>
+                <tr><td class="sub">Added Sugars</td><td>0 g</td><td>0 g</td><td><span class="rda">0%</span></td></tr>
+                <tr><td><strong>Dietary Fibre</strong></td><td>3.5 g</td><td>2.8 g</td><td>—</td></tr>
+                <tr><td><strong>Total Fat</strong></td><td>9.7 g</td><td>7.8 g</td><td><span class="rda">11.6%</span></td></tr>
+                <tr><td class="sub">Saturated Fat</td><td>1.8 g</td><td>1.4 g</td><td><span class="rda">6.5%</span></td></tr>
+                <tr><td class="sub">Trans Fat</td><td>~0 g</td><td>~0 g</td><td><span class="rda">0%</span></td></tr>
+                <tr><td><strong>Sodium</strong></td><td>749 mg</td><td>599 mg</td><td><span class="rda">30.0%</span></td></tr>
+              </tbody>
+            </table>
+          </div>
 
-<section class="card">
-<h2>Product Information</h2>
-<p class="muted">This area is ready for future information such as ingredients, allergens, storage instructions, manufacturing details, product story and contact information.</p>
-</section>
+          <div class="note">
+            <strong>% RDA:</strong> Recommended Dietary Allowance reference is based on a 2,000 kcal diet. Your daily requirements vary based on your calorie needs.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<footer>Product information page • Version 1</footer>
+  <footer>Product information page • Version 2</footer>
 </main>
 
 <script>
-const menu=document.getElementById("menu"),dropdown=document.getElementById("dropdown"),lime=document.getElementById("limeNutrition");
-menu.onclick=()=>{const open=dropdown.classList.toggle("show");menu.classList.toggle("open",open);menu.setAttribute("aria-expanded",open)};
-document.getElementById("limeButton").onclick=()=>{lime.classList.toggle("show");if(lime.classList.contains("show"))lime.scrollIntoView({behavior:"smooth",block:"start"})};
+  const menu = document.getElementById("menu");
+  const dropdown = document.getElementById("dropdown");
+  const lime = document.getElementById("limeNutrition");
+
+  menu.onclick = () => {
+    const open = dropdown.classList.toggle("show");
+    menu.classList.toggle("open", open);
+    menu.setAttribute("aria-expanded", open);
+  };
+
+  document.getElementById("limeButton").onclick = () => {
+    const willShow = !lime.classList.contains("show");
+    lime.classList.toggle("show", willShow);
+    if (willShow) {
+      setTimeout(() => lime.scrollIntoView({ behavior: "smooth", block: "start" }), 150);
+    }
+  };
 </script>
 </body>
 </html>
