@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FAH Nutrition Admin Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F6F2E7;--ink:#1C1B16;--muted:#726C5E;--line:#E7E1D1;--green:#6E8F1F}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,Arial,sans-serif;min-height:100vh;display:grid;place-items:center;padding:18px}
+.panel{width:min(100%,440px);background:#fff;border:1px solid var(--line);border-radius:22px;padding:26px;box-shadow:0 10px 30px #1c1b160f}
+.mark{width:60px;height:60px;border-radius:17px;background:#fdfcf8;border:1px solid var(--line);display:grid;place-items:center;font:700 20px "Space Grotesk",sans-serif;margin-bottom:18px}
+h1{font:700 27px "Space Grotesk",sans-serif;margin:0 0 8px}.muted{color:var(--muted);font-size:14px;line-height:1.55}
+label{display:block;font-size:13px;font-weight:700;margin:16px 0 7px}input{width:100%;padding:13px;border:1px solid var(--line);border-radius:11px;font:inherit;background:#fdfcf8}
+button{width:100%;border:0;border-radius:11px;background:var(--ink);color:#fff;font:700 15px Inter,sans-serif;padding:14px;cursor:pointer;margin-top:18px}button:disabled{opacity:.55;cursor:wait}
+.status{margin-top:14px;font-size:13px;line-height:1.5;overflow-wrap:anywhere}.back{display:inline-block;margin-top:18px;color:var(--green);font-size:13px}
+</style></head>
+<body><main class="panel">
+<div class="mark" aria-label="CRUNCHIES">C</div>
+<h1>Admin Login</h1>
+<p class="muted">Enter your authorised administrator email and password to unlock the FAH nutrition dashboard.</p>
+<form id="loginForm">
+<label for="email">Admin email</label><input id="email" type="email" autocomplete="username" required placeholder="Your authorised email">
+<label for="password">Password</label><input id="password" type="password" autocomplete="current-password" required minlength="8" placeholder="Enter your password">
+<button id="loginBtn" type="submit">Unlock Admin Dashboard</button>
+</form>
+<div class="status" id="status" role="status"></div>
+<a class="back" href="./index.html">← Back to public nutrition page</a>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script>
+<script>
+const $=id=>document.getElementById(id);let client;
+function status(message){$("status").textContent=message}
+function setup(){if(!window.FAH_SUPABASE_URL||window.FAH_SUPABASE_URL.includes("YOUR-PROJECT")||!window.FAH_SUPABASE_ANON_KEY||window.FAH_SUPABASE_ANON_KEY.includes("YOUR_SUPABASE")){status("Setup required: add your Supabase project URL and publishable/anon key in config.js.");return false}client=window.supabase.createClient(window.FAH_SUPABASE_URL,window.FAH_SUPABASE_ANON_KEY);return true}
+async function checkAllowlist(email){const {data,error}=await client.from("fah_nutrition_admin_allowlist").select("email").eq("email",email.toLowerCase()).maybeSingle();return !error&&!!data}
+$("loginForm").addEventListener("submit",async event=>{event.preventDefault();if(!client&&!setup())return;
+const email=$("email").value.trim().toLowerCase(),password=$("password").value;
+$("loginBtn").disabled=true;status("Checking credentials…");
+const {error}=await client.auth.signInWithPassword({email,password});
+if(error){$("loginBtn").disabled=false;status("Login failed. Check your email/password, or create/reset the password for this account in Supabase Authentication.");return}
+if(!(await checkAllowlist(email))){await client.auth.signOut();$("loginBtn").disabled=false;status("Access denied: this email is not on the authorised admin allowlist.");return}
+location.href="./admin.html";
+});
+(async()=>{if(!setup())return;const {data:{session}}=await client.auth.getSession();if(session){const email=(session.user.email||"").toLowerCase();if(await checkAllowlist(email)){location.href="./admin.html";return}await client.auth.signOut()}})();
+</script></body></html>

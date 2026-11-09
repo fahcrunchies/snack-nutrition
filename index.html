@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Crunchies product and nutrition information">
+<title>Crunchies | Product Information</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F6F2E7;--ink:#1C1B16;--muted:#726C5E;--line:#E7E1D1;--card:#FFFFFF;--accent:#6E8F1F;--accent-soft:#EDF2DD;--accent-ink:#3E5411;--radius-lg:22px;--radius-md:16px;--shadow:0 10px 30px rgba(28,27,22,.06)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased}
+.page{max-width:720px;margin:auto;padding:36px 18px 56px}.brand{text-align:center;padding:8px 10px 30px}
+.mark{width:76px;height:76px;margin:0 auto 16px;border-radius:22px;background:var(--card);display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow),inset 0 0 0 1px var(--line);padding:12px}
+.mark img{width:100%;height:100%;object-fit:contain;display:block}
+h1{font-family:'Space Grotesk',Arial,sans-serif;font-weight:700;font-size:clamp(30px,7vw,44px);margin:0 0 6px;letter-spacing:-1px}
+.tagline{color:var(--muted);font-size:15px;font-weight:500}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-lg);padding:6px;margin-bottom:18px;box-shadow:var(--shadow)}
+button,input{font:inherit}.menu{width:100%;border:0;background:var(--ink);color:#fff;border-radius:calc(var(--radius-lg) - 6px);padding:18px 20px;text-align:left;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;letter-spacing:.2px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:background .2s ease}
+.menu:hover{background:#2b2a22}.arrow{transition:transform .25s ease;opacity:.8;font-size:18px}.menu.open .arrow{transform:rotate(180deg)}
+.dropdown{display:grid;grid-template-rows:0fr;transition:grid-template-rows .28s ease}.dropdown.show{grid-template-rows:1fr}.dropdown-inner{overflow:hidden}.dropdown-list{padding-top:10px}
+.search-wrap{padding:12px 10px 4px}.search-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);padding:0 4px}
+.search-input{width:100%;border:1px solid var(--line);background:#FDFCF8;border-radius:12px;padding:14px 15px;color:var(--ink);margin-top:8px;outline:none}.search-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(110,143,31,.12)}
+.product{width:100%;border:0;background:transparent;padding:15px 16px;text-align:left;font-weight:600;font-size:15px;cursor:pointer;border-radius:12px;display:flex;align-items:center;justify-content:space-between;transition:background .15s ease;color:var(--ink)}
+.product::after{content:"→";color:var(--accent);font-weight:700;opacity:.6;transition:transform .15s ease}.product:hover,.product[aria-pressed="true"]{background:var(--accent-soft)}.product:hover::after{transform:translateX(3px)}
+.product small{display:block;font-weight:500;color:var(--muted);font-size:12px;margin-top:4px}.empty{padding:18px 15px;color:var(--muted);font-size:14px}
+.nutrition{display:none;margin-top:14px}.nutrition.show{display:block}.nutrition-inner{overflow:hidden}.nutrition-pad{padding:2px 12px 16px}
+h2{font-family:'Space Grotesk',sans-serif;font-size:21px;margin:6px 0 4px;letter-spacing:-.3px}
+.serving{color:var(--muted);font-size:14px;margin-bottom:14px}.serving strong{color:var(--ink)}
+.ingredients-box{margin:12px 0 18px;padding:14px 15px;border-radius:var(--radius-md);background:#FAF8F1;border:1px solid var(--line)}
+.ingredients-box h3{font-family:'Space Grotesk',sans-serif;font-size:16px;margin:0 0 7px}.ingredients-text{font-size:14px;line-height:1.65;white-space:pre-wrap;margin:0}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius-md)}table{border-collapse:collapse;width:100%;min-width:540px;font-size:13.5px}
+th,td{padding:13px 14px;border-bottom:1px solid var(--line);text-align:right}th:first-child,td:first-child{text-align:left}
+th{background:var(--accent-soft);color:var(--accent-ink);font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;font-weight:700}tr:last-child td{border-bottom:0}tbody tr:hover{background:#FBFAF5}.sub{padding-left:26px!important;color:var(--muted);font-weight:400}
+.rda{display:inline-block;padding:2px 8px;border-radius:20px;background:var(--accent-soft);color:var(--accent-ink);font-weight:700;font-size:12px}
+.note{margin-top:16px;padding:14px 16px;border-radius:var(--radius-md);background:#FAF8F1;border:1px solid var(--line);color:var(--muted);font-size:12.5px;line-height:1.6}.note strong{color:var(--ink)}
+.contact-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-lg);padding:16px;margin-bottom:18px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:12px}
+.contact-label{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:0 4px}
+.link-btn{display:flex;align-items:center;gap:12px;width:100%;text-decoration:none;border-radius:14px;padding:15px 16px;font-weight:700;font-size:15px;border:1px solid var(--line);background:#FDFCF8;color:var(--ink);transition:background .15s ease,transform .15s ease,border-color .15s ease}
+.link-btn:hover{background:var(--accent-soft);border-color:var(--accent);transform:translateY(-1px)}.link-btn:active{transform:translateY(0)}
+.link-icon{width:38px;height:38px;flex:0 0 38px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff}.link-icon svg{width:20px;height:20px}.icon-insta{background:linear-gradient(135deg,#f58529,#dd2a7b,#8134af,#515bd4)}.icon-mail{background:var(--ink)}
+.link-text{display:flex;flex-direction:column;gap:1px;flex:1}.link-title{font-size:15px}.link-sub{font-size:12.5px;color:var(--muted);font-weight:500}.link-arrow{color:var(--accent);font-weight:700;opacity:.7}
+footer{text-align:center;color:var(--muted);font-size:12px;margin-top:30px}
+</style>
+</head>
+<body><main class="page">
+<header class="brand"><div class="mark"><img src="logo.png" alt="Crunchies logo"></div><h1>CRUNCHIES</h1><div class="tagline">Know what you're eating.</div></header>
+<section class="card">
+<button class="menu" id="menu" aria-expanded="true"><span>Nutrition Values</span><span class="arrow">⌄</span></button>
+<div class="dropdown show" id="dropdown"><div class="dropdown-inner">
+<div class="search-wrap"><div class="search-label">Search products or flavours</div><input class="search-input" id="search" type="search" placeholder="Type a flavour name, e.g. Lime, Garlic..." aria-label="Search product flavours"></div>
+<div class="dropdown-list" id="productList" aria-live="polite"></div>
+</div></div>
+<div class="nutrition" id="nutrition"><div class="nutrition-inner"><div class="nutrition-pad">
+<h2 id="productName"></h2><p class="serving" id="serving"></p>
+<div class="ingredients-box"><h3>Ingredients</h3><p class="ingredients-text" id="ingredients"></p></div>
+<h2>Nutritional Information</h2>
+<div class="tablewrap"><table><thead><tr><th>Nutritional Information</th><th>Per 100 g</th><th id="servingHead">Per Serving</th><th>% RDA</th></tr></thead><tbody id="nutritionRows"></tbody></table></div>
+<div class="note"><strong>% RDA:</strong> Recommended Dietary Allowance reference is based on a 2,000 kcal diet. Your daily requirements vary based on your calorie needs.</div>
+</div></div></div>
+</section>
+<section class="contact-card"><div class="contact-label">Get in touch</div>
+<a class="link-btn" href="https://www.instagram.com/fah_findallhappiness?stkn=bDBncmJwNmxoanB3" target="_blank" rel="noopener noreferrer"><span class="link-icon icon-insta"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="20" height="20" rx="5" stroke="white" stroke-width="2"/><circle cx="12" cy="12" r="4.2" stroke="white" stroke-width="2"/><circle cx="17.4" cy="6.6" r="1.2" fill="white"/></svg></span><span class="link-text"><span class="link-title">Follow us on Instagram</span><span class="link-sub">@fah_findallhappiness</span></span><span class="link-arrow">→</span></a>
+<a class="link-btn" href="mailto:supportfahfoods@gmail.com"><span class="link-icon icon-mail"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2.5" y="4.5" width="19" height="15" rx="3" stroke="white" stroke-width="2"/><path d="M3.5 6.5L12 13L20.5 6.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="link-text"><span class="link-title">Email support</span><span class="link-sub">supportfahfoods@gmail.com</span></span><span class="link-arrow">→</span></a>
+</section><footer>Product information page • Version 3</footer></main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script>
+<script>
+const $=id=>document.getElementById(id);let db=null,products=[];
+const fallback=[{id:"lime",name:"Crunchies Lime Seasoning",flavour:"Lime",serving_grams:80,ingredients:"Ingredients not entered yet. Add the verified ingredients from your product label in the admin page.",nutrition:[
+{name:"Energy",per_100g:"367 kcal",per_serving:"294 kcal",rda:"14.7%"},{name:"Protein",per_100g:"8.6 g",per_serving:"6.9 g",rda:"—"},{name:"Carbohydrate",per_100g:"60.1 g",per_serving:"48.1 g",rda:"—"},{name:"Total Sugars",per_100g:"0.5 g",per_serving:"0.4 g",rda:"—",sub:true},{name:"Added Sugars",per_100g:"0 g",per_serving:"0 g",rda:"0%",sub:true},{name:"Dietary Fibre",per_100g:"3.5 g",per_serving:"2.8 g",rda:"—"},{name:"Total Fat",per_100g:"9.7 g",per_serving:"7.8 g",rda:"11.6%"},{name:"Saturated Fat",per_100g:"1.8 g",per_serving:"1.4 g",rda:"6.5%",sub:true},{name:"Trans Fat",per_100g:"~0 g",per_serving:"~0 g",rda:"0%",sub:true},{name:"Sodium",per_100g:"749 mg",per_serving:"599 mg",rda:"30.0%"}]}];
+function render(){const q=$("search").value.trim().toLowerCase();const matches=products.filter(p=>(p.name+" "+(p.flavour||"")).toLowerCase().includes(q));const box=$("productList");box.replaceChildren();if(!matches.length){const e=document.createElement("div");e.className="empty";e.textContent="No matching product found. Try another flavour name.";box.append(e);return}matches.forEach(p=>{const b=document.createElement("button");b.type="button";b.className="product";b.setAttribute("aria-pressed",String($("productName").dataset.id===p.id));const t=document.createElement("span");t.textContent=p.name;const small=document.createElement("small");small.textContent="View ingredients & nutritional values";t.append(small);b.append(t);b.addEventListener("click",()=>showProduct(p));box.append(b)})}
+function showProduct(p){$("productName").textContent=p.name;$("productName").dataset.id=p.id;$("serving").innerHTML="";const strong=document.createElement("strong");strong.textContent="Serving size: ";$("serving").append(strong,document.createTextNode(`${p.serving_grams} g (1 pack)`));$("servingHead").textContent=`Per Serving (${p.serving_grams} g)`;$("ingredients").textContent=p.ingredients||"Ingredients not added yet.";const tbody=$("nutritionRows");tbody.replaceChildren();(p.nutrition||[]).forEach(n=>{const tr=document.createElement("tr"),name=document.createElement("td");if(n.sub){name.className="sub";name.textContent=n.name}else{const s=document.createElement("strong");s.textContent=n.name;name.append(s)}const a=document.createElement("td");a.textContent=n.per_100g||"—";const b=document.createElement("td");b.textContent=n.per_serving||"—";const c=document.createElement("td");if(n.rda&&n.rda!=="—"){const badge=document.createElement("span");badge.className="rda";badge.textContent=n.rda;c.append(badge)}else c.textContent=n.rda||"—";tr.append(name,a,b,c);tbody.append(tr)});$("nutrition").classList.add("show");render();setTimeout(()=>$("nutrition").scrollIntoView({behavior:"smooth",block:"start"}),80)}
+$("menu").addEventListener("click",()=>{const open=$("dropdown").classList.toggle("show");$("menu").classList.toggle("open",open);$("menu").setAttribute("aria-expanded",String(open))});
+$("search").addEventListener("input",render);
+async function init(){products=fallback;if(window.FAH_SUPABASE_URL&&!window.FAH_SUPABASE_URL.includes("YOUR-PROJECT")&&window.FAH_SUPABASE_ANON_KEY&&!window.FAH_SUPABASE_ANON_KEY.includes("YOUR_SUPABASE")){db=window.supabase.createClient(window.FAH_SUPABASE_URL,window.FAH_SUPABASE_ANON_KEY);const {data,error}=await db.from("fah_nutrition_products").select("*").eq("published",true).order("name");if(!error&&data&&data.length)products=data}render()}
+init();
+</script></body></html>
